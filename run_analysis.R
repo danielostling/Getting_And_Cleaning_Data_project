@@ -3,28 +3,39 @@
 # Course project, Getting And Cleaning Data
 # by Daniel Östling 2014
 #
-# This program should work with only base R, no libraries needed.
+# This program should work with only base R, no additional libraries needed.
 #
 # The goals of this program are:
 # 1. Merge the training and the test sets to create one data set.
-# 2. Extract only the measurements on the mean and standard deviation for each 
-#    measurement.
+# 2. Extract only the measurements on the mean and standard deviation for 
+#    each measurement.
 # 3. Use descriptive activity names to name the activities in the data set.
 # 4. Appropriately labels the data set with descriptive variable names.
 # 5. Create a second, independent tidy data set with the average of each 
 #    variable for each activity and each subject.
 #
-
-
+# Please note that this script could have been done in a lot fewer lines of 
+# code. The main purpose of this structure is to allow easier understanding 
+# of what's going on. At the bottom of this script, you will find an initial 
+# call to the main() function seen below this comment block. This is done to 
+# get a natural "flow" of the code. To get started, set the base path of the 
+# unpacked motion tracking data archive in main() below, in the variable 
+# vecCharDataPath.
+#
 #############################################################################
-# danielostling: Set the base path below in the main function.
 
+
+# danielostling: Perform the data analysis, and write the result to file.
+# Input:
+# Nothing.
+#
+# Returns:
+# Nothing, but output is a "tidy" data set, written to disk as 
+# "Getting_and_Cleaning_Data_tidy.txt".
 main <- function() {
-  # danielostling: Set the base path of the unpacked data archive. See 
-  # README.md if you are unsure what value to set here.
   vecCharDataPath <- "UCI HAR Dataset"
 
-  # danielostling: Read and manipulate the data sets.
+  # danielostling: Read, manipulate and summarize the data sets.
   dfCombined <- readAndPrepareDataFiles(vecCharDataPath)
   dfCombined <- renameActivities(dfCombined, vecCharDataPath)
   dfCombined <- summarizeData(dfCombined)
@@ -38,7 +49,6 @@ main <- function() {
 
 #############################################################################
 # danielostling: Supporting functions below this point.
-
 
 # danielostling: Read data files, merge and label them, and return the merged 
 # data frame. This function deals with goals 1, 2, and 4.
@@ -92,7 +102,6 @@ readAndPrepareDataFiles <- function(vecCharDataPath) {
   vecCharFeatures <- dfFeatures[, -c(1)]
 
   # danielostling: Set feature labels for the data sets.
-  # This meets goal 4.
   colnames(dfXTest) <- vecCharFeatures
   colnames(dfXTrain) <- vecCharFeatures
 
@@ -121,11 +130,22 @@ readAndPrepareDataFiles <- function(vecCharDataPath) {
   # danielostling: Finally, append/merge the two data frames into one. I'll put 
   # the training set first and the test set second. Return it to caller.
   # This meets goal 1.
-  rbind(dfXTrain, dfXTest)
+  dfCombined <- rbind(dfXTrain, dfXTest)
+
+  # danielostling: Fix double dots and ending dots in feature names.
+  vecFeatures <- names(dfCombined)
+  vecFeatures <- gsub("[-()]", ".", vecFeatures)
+  vecFeatures <- gsub("\\.{2,}", ".", vecFeatures)
+  vecFeatures <- gsub("\\.$", "", vecFeatures)  
+  
+  # danielostling: Replace feature names and return result.
+  # This meets goal 4.
+  colnames(dfCombined) <- vecFeatures
+  dfCombined
 }
 
 
-# danielostling: Goals 3: Set appropriate activity names by replacing the 
+# danielostling: Goal 3: Set appropriate activity names by replacing the 
 # integer representations with human-readable strings.
 # Input:
 # dfDataIn - Data frame to manipulate.
@@ -212,14 +232,7 @@ summarizeData <- function(dfDataIn) {
       }
   }
 
-  # danielostling: Fix double dots and ending dots in feature names.
-  vecFeatures <- names(dfResult)
-  vecFeatures <- gsub("[-()]", ".", vecFeatures)
-  vecFeatures <- gsub("\\.{2,}", ".", vecFeatures)
-  vecFeatures <- gsub("\\.$", "", vecFeatures)  
-
-  # danielostling: Replace feature names and return result.
-  colnames(dfResult) <- vecFeatures
+  # danielostling: Return result.
   dfResult
 }
 
