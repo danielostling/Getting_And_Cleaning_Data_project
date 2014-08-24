@@ -27,16 +27,18 @@ deviation features in the original data. The summary is done as the average
 of each mean or standard deviation feature, for each subject and each 
 activity. When the run_analysis.R script is run, it will write the tidy data 
 set into a file named "Getting_and_Cleaning_Data_tidy.txt", with the command:
+````
       write.table(
           dfCombined,
           file="Getting_and_Cleaning_Data_tidy.txt", 
           row.names=FALSE)
-
+````
 where "dfCombined" is the resulting data set of the summary analysis.
 
 ## A note on the data
 The feaures in the output is described in a separate code book file, named
 "Codebook.txt". It explains how to interpret the various features in the 
 resulting tidy data set. In R, you can load the data set with this command: 
+````
     dfTidy <- read.table("Getting_and_Cleaning_Data_tidy.txt", header=TRUE)
-
+````
