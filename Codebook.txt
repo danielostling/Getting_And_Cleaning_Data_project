@@ -1,0 +1,103 @@
+This file describes the tidy data set produced by run_analysis.R, described 
+in README.md. The features in the tidy data set are based on the features in 
+the UCI motion tracking data sets. For an explanation of them, please see the 
+files "README.txt", "features_info.txt", "features.txt" and 
+"activity_labels.txt" in the UCI data archive.
+
+The tidy data set is based on the combination of the training and the test 
+data sets from the UCI data archive. In the tidy data set, the features are 
+the ones in the list below. They are all calculated features, except the 
+last two, "Activity" and "Subject".
+
+The "Activity" feature is one of six activities, described in the files in 
+the UCI data archive, and the "Subject" feature is an identifier that ties 
+an observation to one participing subject.
+
+The rest of the features are referred to as calculated features. They are 
+each grouped on activity and subject. The grouping is done such that for each 
+combination of activity and subject, all observations were extracted from the 
+combined UCI data sets. All features for averages/means or standard deviation 
+were kept, and the rest of the features were dropped. Then, the average for 
+each remaining feature was calculated, and saved in the resulting tidy data 
+set.
+
+The names of the features in the tidy data set, seen in the list below, are 
+based on the names of the features in the UCI data sets. To get the feature 
+names below, characters -, ( and ) were replaced with a dot, ".". Then dots 
+were removed so that a maximum of one consecutive dot remained. Finally, any 
+trailing dots in the feature names were deleted.
+
+PLEASE NOTE: For easier mapping between features in the tidy data set and the 
+UCI data sets, I've retained most of the feature names. However, the features 
+in the tidy data set is actually an AVERAGE of observations as described above.
+
+Index   Feature
+============================
+1       tBodyAcc.mean.X
+2       tBodyAcc.mean.Y
+3       tBodyAcc.mean.Z
+4       tBodyAcc.std.X
+5       tBodyAcc.std.Y
+6       tBodyAcc.std.Z
+7       tGravityAcc.mean.X
+8       tGravityAcc.mean.Y
+9       tGravityAcc.mean.Z
+10      tGravityAcc.std.X
+11      tGravityAcc.std.Y
+12      tGravityAcc.std.Z
+13      tBodyAccJerk.mean.X
+14      tBodyAccJerk.mean.Y
+15      tBodyAccJerk.mean.Z
+16      tBodyAccJerk.std.X
+17      tBodyAccJerk.std.Y
+18      tBodyAccJerk.std.Z
+19      tBodyGyro.mean.X
+20      tBodyGyro.mean.Y
+21      tBodyGyro.mean.Z
+22      tBodyGyro.std.X
+23      tBodyGyro.std.Y
+24      tBodyGyro.std.Z
+25      tBodyGyroJerk.mean.X
+26      tBodyGyroJerk.mean.Y
+27      tBodyGyroJerk.mean.Z
+28      tBodyGyroJerk.std.X
+29      tBodyGyroJerk.std.Y
+30      tBodyGyroJerk.std.Z
+31      tBodyAccMag.mean
+32      tBodyAccMag.std
+33      tGravityAccMag.mean
+34      tGravityAccMag.std
+35      tBodyAccJerkMag.mean
+36      tBodyAccJerkMag.std
+37      tBodyGyroMag.mean
+38      tBodyGyroMag.std
+39      tBodyGyroJerkMag.mean
+40      tBodyGyroJerkMag.std
+41      fBodyAcc.mean.X
+42      fBodyAcc.mean.Y
+43      fBodyAcc.mean.Z
+44      fBodyAcc.std.X
+45      fBodyAcc.std.Y
+46      fBodyAcc.std.Z
+47      fBodyAccJerk.mean.X
+48      fBodyAccJerk.mean.Y
+49      fBodyAccJerk.mean.Z
+50      fBodyAccJerk.std.X
+51      fBodyAccJerk.std.Y
+52      fBodyAccJerk.std.Z
+53      fBodyGyro.mean.X
+54      fBodyGyro.mean.Y
+55      fBodyGyro.mean.Z
+56      fBodyGyro.std.X
+57      fBodyGyro.std.Y
+58      fBodyGyro.std.Z
+59      fBodyAccMag.mean
+60      fBodyAccMag.std
+61      fBodyBodyAccJerkMag.mean
+62      fBodyBodyAccJerkMag.std
+63      fBodyBodyGyroMag.mean
+64      fBodyBodyGyroMag.std
+65      fBodyBodyGyroJerkMag.mean
+66      fBodyBodyGyroJerkMag.std
+67      Activity
+68      Subject
